@@ -1,132 +1,155 @@
 # House Price Prediction
-### A Machine Learning Regression Project for Estimating Median House Prices
 
-House Price Prediction is a machine learning project that estimates the median house
-value of a district based on features such as location, median income, housing age,
-room and bedroom counts, population, and proximity to the ocean. The project focuses
-on a complete, transparent, and beginner-accessible machine learning workflow,
-covering data exploration, preprocessing, model training, evaluation, and model
-comparison.
+### A Machine Learning Regression Project with Custom Model Implementations
 
-Housing prices are influenced by a combination of geographic and socioeconomic
-factors that are difficult to estimate through simple rule-of-thumb reasoning.
-Manual or intuition-based price estimation often fails to account for the combined
-effect of location, income levels, and housing density. This project addresses that
-gap by applying supervised regression techniques to a real-world dataset, allowing
-house prices to be estimated in a consistent, data-driven, and reproducible way.
+House Price Prediction is an end-to-end machine learning regression project that predicts the median house value of California districts using demographic, geographic, and housing-related features. The project demonstrates the complete machine learning workflow, including exploratory data analysis, data preprocessing, custom model implementation, evaluation, and comparison.
 
-The project follows a single-notebook workflow built with Python, pandas, and
-scikit-learn, comparing multiple regression models to identify the best-performing
-approach on the given dataset.
+Unlike a typical machine learning notebook that relies entirely on library implementations, this project implements the core regression algorithms manually using **NumPy** while leveraging **scikit-learn** only for preprocessing utilities and evaluation metrics. The result is an educational, transparent, and reproducible machine learning project that explains not only *how* to use these algorithms but also *how they work internally*.
+
+---
 
 ## Vision
-To build a clear, reproducible, and fully explainable regression pipeline that
-demonstrates the complete machine learning workflow, from raw data to a trained
-and evaluated predictive model.
+
+To build a clear, reproducible, and educational machine learning project that demonstrates the complete regression pipeline while providing custom implementations of fundamental regression algorithms.
+
+---
 
 ## Problem Statement
-Estimating housing prices accurately involves several practical challenges:
 
-- Housing prices are affected by non-linear, interacting geographic factors.
-- Categorical location data (ocean proximity) must be properly encoded for use in a model.
-- Missing values in real-world datasets can break naive modeling approaches.
-- Simple linear assumptions often fail to capture true price behavior.
-- Without model comparison, it is difficult to know which approach is actually best suited to the data.
+Accurately estimating housing prices is a challenging task because they are influenced by multiple geographic, demographic, and socioeconomic factors. Traditional estimation methods often fail to capture these complex relationships.
 
-This project addresses these challenges through structured data cleaning, feature
-encoding, and a side-by-side comparison of multiple regression models.
+Some of the major challenges include:
+
+- Handling missing values in real-world datasets.
+- Encoding categorical variables for machine learning models.
+- Capturing non-linear relationships between housing features and prices.
+- Fairly comparing multiple regression algorithms.
+- Understanding the internal working of machine learning algorithms instead of treating them as black boxes.
+
+This project addresses these challenges through structured preprocessing, custom algorithm implementations, and standardized evaluation techniques.
+
+---
 
 ## Key Features
-- Exploratory data analysis with correlation and distribution visualizations
-- Missing value handling for incomplete housing records
-- One-hot encoding of categorical location data
-- Multiple regression model training and comparison
-- Standardized evaluation using MAE, RMSE, and R² Score
-- Feature importance visualization
-- Automatic identification of the best-performing model based on R² score
+
+- Exploratory Data Analysis (EDA)
+- Data preprocessing using **Pipeline** and **ColumnTransformer**
+- Missing value handling
+- One-Hot Encoding for categorical features
+- Standardization of numerical features
+- Custom implementation of Linear Regression
+- Custom implementation of Decision Tree Regression
+- Custom implementation of Random Forest Regression
+- Custom implementation of K-Nearest Neighbors Regression
+- Centralized evaluation framework
+- Automatic model comparison
+- Automatic best model selection using R² Score
+
+---
 
 ## Technology Stack
 
 | Category | Technologies |
-|---|---|
+|----------|--------------|
 | Language | Python 3.11+ |
 | Environment | Jupyter Notebook |
 | Data Handling | Pandas, NumPy |
 | Visualization | Matplotlib, Seaborn |
-| Machine Learning | Scikit-learn |
+| Preprocessing | Scikit-learn Pipeline, ColumnTransformer |
+| Model Implementation | Custom NumPy Implementations |
+
+---
 
 ## System Architecture
-This project follows a simple, linear, single-notebook architecture.
 
-- Raw housing data is loaded directly from a CSV file into a pandas DataFrame.
-- Missing values and categorical fields are cleaned and encoded prior to modeling.
-- The dataset is split into training and testing sets using an 80/20 split.
-- Three regression models are trained independently on the same training data.
-- Each model is evaluated on the same held-out test set for a fair comparison.
-- The best-performing model is identified automatically based on R² score.
+```text
+                    Housing Dataset
+                           │
+                           ▼
+            Exploratory Data Analysis (EDA)
+                           │
+                           ▼
+                 Data Preprocessing Pipeline
+                           │
+                           ▼
+                  Train-Test Split (80/20)
+                           │
+        ┌──────────────┬──────────────┬──────────────┬──────────────┐
+        ▼              ▼              ▼              ▼
+ Linear Regression  Decision Tree  Random Forest   K-Nearest Neighbors
+        │              │              │              │
+        └──────────────┴──────────────┴──────────────┘
+                           │
+                           ▼
+              Centralized Evaluation Framework
+                           │
+                           ▼
+                 Model Performance Comparison
+                           │
+                           ▼
+                  Automatic Best Model Selection
+```
 
-This architecture keeps the workflow easy to follow, reproduce, and explain end to
-end, which is intentional given the project's beginner-level scope.
+---
 
-## Machine Learning Pipeline
+## Machine Learning Workflow
+
 1. Dataset Loading
 2. Exploratory Data Analysis
 3. Missing Value Handling
-4. Categorical Feature Encoding
-5. Train-Test Split
-6. Model Training (Linear Regression, Decision Tree, Random Forest)
-7. Model Evaluation
-8. Feature Importance Analysis
-9. Best Model Selection
+4. Feature Encoding
+5. Data Scaling
+6. Train-Test Split
+7. Custom Model Implementation
+8. Model Training
+9. Model Evaluation
+10. Model Comparison
+11. Best Model Selection
+
+---
 
 ## Model Performance
 
-**Linear Regression**
+| Model | MAE | RMSE | R² Score |
+|------|------:|------:|------:|
+| Linear Regression | ~50,670 | ~70,059 | ~0.625 |
+| Decision Tree Regression | ~40,319 | ~61,015 | ~0.715 |
+| **Random Forest Regression** | **~39,828** | **~57,466** | **~0.748** |
+| K-Nearest Neighbors Regression | ~40,737 | ~61,351 | ~0.712 |
 
-| Metric | Value |
-|---|---|
-| MAE | $50,670.74 |
-| RMSE | $70,060.52 |
-| R² Score | 0.625 |
+The **Random Forest Regression** model achieved the highest predictive performance by combining multiple decision trees trained on bootstrap samples while introducing random feature selection at every node split. This ensemble approach effectively reduced overfitting and captured complex non-linear relationships within the housing dataset.
 
-**Decision Tree**
+---
 
-| Metric | Value |
-|---|---|
-| MAE | $44,180.85 |
-| RMSE | $69,755.78 |
-| R² Score | 0.629 |
+## Notebook Structure
 
-**Random Forest (Final Model)**
-
-| Metric | Value |
-|---|---|
-| MAE | $31,639.37 |
-| RMSE | $49,038.20 |
-| R² Score | 0.816 |
-
-The Random Forest model was selected as the final model due to its clear improvement
-in accuracy over both the linear and single-tree baselines, driven by its ability to
-capture non-linear relationships between location, income, and housing price.
-
-## Notebook Sections
-- Load Data
+- Introduction
+- Dataset Overview
 - Exploratory Data Analysis
-- Handle Missing Values
-- Encode Categorical Data
+- Data Preprocessing
 - Train-Test Split
-- Train Models
-- Compare Results
-- Feature Importance
-- Best Model Selection
+- Model Evaluation Framework
+- Linear Regression
+- Decision Tree Regression
+- Random Forest Regression
+- K-Nearest Neighbors Regression
+- Model Comparison
+- Conclusion
+
+---
 
 ## Dataset
-- **Source:** Kaggle - California Housing Prices
-- **Link:** https://www.kaggle.com/datasets/camnugent/california-housing-prices
-- **Records:** 20,640
-- **Target Variable:** `median_house_value`
 
-**Features**
+**Source:** Kaggle – California Housing Prices
+
+**Records:** 20,640
+
+**Target Variable**
+
+- `median_house_value`
+
+**Input Features**
+
 - `longitude`
 - `latitude`
 - `housing_median_age`
@@ -137,60 +160,125 @@ capture non-linear relationships between location, income, and housing price.
 - `median_income`
 - `ocean_proximity`
 
+---
+
 ## Design Principles
-- Simplicity and Readability
-- Full Explainability of Every Step
-- Fair, Consistent Model Comparison
-- Reproducible Results
-- Clean, Minimal Project Structure
-- No Hidden or Unnecessary Complexity
+
+- Simplicity
+- Readability
+- Explainability
+- Reproducibility
+- Educational Value
+- Modular Design
+- Clean Code
+
+---
 
 ## Project Structure
-```
+
+```text
 House_Price_Prediction.ipynb
 housing.csv
 README.md
 requirements.txt
 ```
 
+---
+
 ## Setup Instructions
-1. Create a virtual environment:
-   ```bash
-   python -m venv .venv
-   ```
-2. Activate the virtual environment:
-   - Windows: `.venv\Scripts\activate`
-   - macOS/Linux: `source .venv/bin/activate`
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+
+1. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+2. Activate the virtual environment
+
+**Windows**
+
+```bash
+.venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source .venv/bin/activate
+```
+
+3. Install the dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
 
 ## How to Run
-1. Ensure the virtual environment is activated and dependencies are installed.
-2. Launch Jupyter Notebook:
-   ```bash
-   jupyter notebook
-   ```
-3. Open `House_Price_Prediction.ipynb`.
-4. Run all cells from top to bottom to execute the full pipeline, train all three
-   models, and print out the best-performing model based on R² score.
+
+Launch Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+House_Price_Prediction.ipynb
+```
+
+Run every cell from top to bottom.
+
+The notebook will automatically:
+
+- Load and preprocess the dataset
+- Train each regression model
+- Evaluate model performance
+- Compare all models
+- Identify the best-performing model
+
+---
+
+## Key Learnings
+
+This project demonstrates:
+
+- End-to-end machine learning workflow
+- Data preprocessing using Pipelines and ColumnTransformer
+- Manual implementation of fundamental regression algorithms
+- Recursive tree construction
+- Bootstrap Aggregating (Bagging)
+- Random feature selection
+- Distance-based learning with K-Nearest Neighbors
+- Centralized model evaluation
+- Comparative performance analysis using MAE, RMSE, and R² Score
+
+---
 
 ## Current Status
 
-**Completed**
-- Data Loading and Exploration
-- Missing Value Handling
-- Categorical Encoding
-- Model Training (Linear Regression, Decision Tree, Random Forest)
-- Model Evaluation and Comparison
-- Feature Importance Visualization
-- Best Model Selection
+### Completed
 
-**Planned Enhancements**
-- Model Persistence (saving the best model to disk)
-- Hyperparameter Tuning
+- Exploratory Data Analysis
+- Data Preprocessing Pipeline
+- Linear Regression Implementation
+- Decision Tree Regression Implementation
+- Random Forest Regression Implementation
+- K-Nearest Neighbors Regression Implementation
+- Centralized Evaluation Framework
+- Automatic Model Comparison
+- Best Model Selection
+- Comprehensive Notebook Documentation
+
+---
+
+## Future Improvements
+
 - Cross-Validation
-- Additional Model Types (e.g. Gradient Boosting)
-- Prediction Interface for New Inputs
-- Deployment as a Simple Web Application
+- Hyperparameter Tuning
+- Feature Importance Calculation for the custom Random Forest
+- Model Persistence using Joblib
+- Interactive Prediction Interface
+- Deployment as a Web Application
