@@ -10,16 +10,17 @@ Unlike conventional machine learning projects that rely entirely on pre-built li
 
 This project aims to provide a practical understanding of regression algorithms by building them from the ground up and comparing their performance on a real-world housing dataset.
 
-The notebook walks through every stage of a typical machine learning project, including:
+The notebook walks through every stage of a modern machine learning workflow, including:
 
 - Exploratory Data Analysis (EDA)
 - Data Preprocessing
 - Custom Model Implementation
 - Model Training
 - Hyperparameter Tuning
+- K-Fold Cross Validation
 - Model Evaluation
 - Feature Importance Analysis
-- Model Comparison
+- Final Model Comparison
 
 ---
 
@@ -34,6 +35,7 @@ The notebook walks through every stage of a typical machine learning project, in
 - Custom Random Forest Regression
 - Custom K-Nearest Neighbors Regression
 - Custom Hyperparameter Tuning Framework
+- Custom K-Fold Cross Validation Framework
 - Custom Random Forest Feature Importance
 - Centralized Evaluation Pipeline
 - Automatic Model Comparison
@@ -63,26 +65,28 @@ California Housing Dataset
  Exploratory Data Analysis
             │
             ▼
- Data Preprocessing
+ Data Preprocessing Pipeline
             │
             ▼
  Train-Test Split
             │
             ▼
- Model Implementation
- ├── Linear Regression
- ├── Decision Tree Regression
- ├── Random Forest Regression
- └── K-Nearest Neighbors Regression
+ Custom Model Training
             │
             ▼
  Hyperparameter Tuning
+            │
+            ▼
+ K-Fold Cross Validation
             │
             ▼
  Model Evaluation
             │
             ▼
  Feature Importance Analysis
+            │
+            ▼
+ Final Model Comparison
             │
             ▼
  Best Model Selection
@@ -115,14 +119,30 @@ A custom hyperparameter tuning framework was developed without using **GridSearc
 
 ---
 
+# K-Fold Cross Validation
+
+To evaluate model robustness and generalization performance, the project implements a custom **5-Fold Cross Validation** framework entirely with **NumPy**, without using `KFold` or `cross_val_score` from scikit-learn.
+
+The framework:
+
+- Splits the dataset into five folds
+- Trains a fresh model on each fold
+- Evaluates MAE, RMSE, and R² for every iteration
+- Computes the mean and standard deviation of the evaluation metrics
+- Automatically compares model stability across folds
+
+This provides a more reliable estimate of real-world performance than relying on a single train-test split.
+
+---
+
 # Model Performance
 
 | Model | MAE | RMSE | R² Score |
 |------|------:|------:|------:|
 | Linear Regression | ~50,670 | ~70,059 | ~0.625 |
-| Decision Tree Regression | ~40,319 | ~61,015 | ~0.720 |
-| **Random Forest Regression** | **39,686.48** | **55,732.24** | **0.7617** |
-| K-Nearest Neighbors Regression | ~40,737 | ~61,351 | ~0.720 |
+| Decision Tree Regression | ~39,900 | ~60,000 | **0.7198** |
+| **Random Forest Regression** | **≈38,000** | **≈53,000** | **0.7960** |
+| K-Nearest Neighbors Regression | ~40,000 | ~60,000 | **0.7196** |
 
 **Best Performing Model:** Random Forest Regression
 
@@ -233,14 +253,15 @@ Run all notebook cells from top to bottom.
 
 The notebook will automatically:
 
-- Load the dataset
-- Perform preprocessing
+- Load and explore the dataset
+- Perform preprocessing using Scikit-learn Pipelines
 - Train all custom regression models
 - Tune model hyperparameters
-- Evaluate each model
-- Compare model performance
-- Generate feature importance
-- Select the best-performing model
+- Perform 5-Fold Cross Validation
+- Evaluate each model using MAE, RMSE, and R²
+- Analyze feature importance
+- Compare all models
+- Automatically select the best-performing model
 
 ---
 
@@ -255,15 +276,17 @@ This project demonstrates:
 - Bootstrap Aggregating (Bagging)
 - Random feature selection in Random Forests
 - Euclidean distance-based KNN regression
-- Hyperparameter tuning without GridSearchCV
+- Custom Hyperparameter Tuning
+- Custom K-Fold Cross Validation
 - Feature importance using variance reduction
 - Model evaluation using MAE, RMSE, and R² Score
+- Model robustness and generalization analysis
 
 ---
 
 # Future Improvements
 
-- K-Fold Cross-Validation
 - Model Persistence using Joblib
 - Interactive Prediction Interface
 - Web Application Deployment
+- Model Explainability with SHAP or LIME
